@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shopping List with Checkboxes and Remarks</title>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  .red-row {
+    background-color: lightcoral;
+  }
+
+  .green-row {
+      background-color: lightgreen;
+  }
+</style>
+</head>
+<body>
+
+  <h2>Shopping List</h2>
+
+  <table id="shoppingTable">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Remarks</th>
+        <th>Category</th>
+        <th>To Buy</th>
+        <th>Bought</th>
+      </tr>
+    </thead>
+    <tbody id="shoppingListBody">
+    </tbody>
+  </table>
+
+  <script>
+    const shoppingData = [
+      { description: "JUICE", remarks: "", category: "BEVERAGES" },
+      { description: "TEA 500 gm", remarks: "", category: "BEVERAGES" },
+      { description: "Soup", remarks: "", category: "BEVERAGES" },
+      { description: "DALIA 2 Kg", remarks: "", category: "CROPS" },
+      { description: "POHA 2 kg", remarks: "", category: "CROPS" },
+      { description: "RICE ZEERASAR 2 kg", remarks: "", category: "CROPS" },
+      { description: "SABUDAANA 500 gm", remarks: "", category: "CROPS" },
+      { description: "ALMONDS 500 gm", remarks: "", category: "DRY FRUITS" },
+      { description: "KISHMISH 500 gm", remarks: "", category: "DRY FRUITS" },
+      { description: "REFINED OIL 2 kg", remarks: "", category: "FATS" },
+      { description: "GHEE 2.5 kg", remarks: "", category: "FATS" },
+      { description: "MUSTARD OIL 2 kg", remarks: "", category: "FATS" },
+      { description: "Ghee Pooja ke Liye 200 gm", remarks: "", category: "FATS" },
+      { description: "BESAN 1 kg", remarks: "", category: "FLOUR" },
+      { description: "SUJI 2 kg", remarks: "", category: "FLOUR" },
+      { description: "WHEAT FLOUR 20 kg", remarks: "", category: "FLOUR" },
+      { description: "MAIDA 1.5 kg", remarks: "", category: "FLOUR" },
+      { description: "chini bura 500 gm", remarks: "", category: "FLOUR" },
+      { description: "Kayam Churan", remarks: "", category: "HEALTH" },
+      { description: "pickle 500 gm", remarks: "", category: "KITCHEN" },
+      { description: "Vim", remarks: "", category: "KITCHEN" },
+      { description: "Multi Vitamin Tab", remarks: "", category: "MEDICAL" },
+      { description: "Vitamin C", remarks: "", category: "MEDICAL" },
+      { description: "metformin 15/500", remarks: "", category: "MEDICAL" },
+      { description: "Bathing Soap", remarks: "", category: "PERSONAL" },
+      { description: "Hair color garnier 2.0", remarks: "", category: "PERSONAL" },
+      { description: "Shaving Brush", remarks: "", category: "PERSONAL" },
+      { description: "Razor blades", remarks: "", category: "PERSONAL" },
+      { description: "Soap joe", remarks: "", category: "PERSONAL" },
+      { description: "kamal", remarks: "", category: "POOJAN" },
+      { description: "Chole 500 gm", remarks: "", category: "PULSES" },
+      { description: "Chunks-Soyabean 200 gm", remarks: "", category: "PULSES" },
+      { description: "Dal-chana 500 gm", remarks: "", category: "PULSES" },
+      { description: "Dal-moong 500 gm", remarks: "", category: "PULSES" },
+      { description: "Dal-Toor 500 gm", remarks: "", category: "PULSES" },
+      { description: "Dal-udad 500 gm", remarks: "", category: "PULSES" },
+      { description: "Ground Nut/Pea nut 1.5 kg", remarks: "", category: "PULSES" },
+      { description: "Matar shuffle 2 kg", remarks: "", category: "PULSES" },
+      { description: "Bread", remarks: "", category: "SNACKS" },
+      { description: "Hide and seek", remarks: "", category: "SNACKS" },
+      { description: "Maggie", remarks: "", category: "SNACKS" },
+      { description: "organo 1 pouch", remarks: "", category: "SNACKS" },
+      { description: "Popcorn 5 pouch", remarks: "", category: "SNACKS" },
+      { description: "Tomato Sauce", remarks: "", category: "SNACKS" },
+      { description: "Pasta", remarks: "", category: "SNACKS" },
+      { description: "Biscuit", remarks: "", category: "SNACKS" },
+      { description: "Pizza Sauce", remarks: "", category: "SNACKS" },
+      { description: "Mayonnaise", remarks: "", category: "SNACKS" },
+      { description: "azwain 100 gm", remarks: "", category: "SPICES" },
+      { description: "heeng 10 gm", remarks: "", category: "SPICES" },
+      { description: "Kali Mirch 100 gm", remarks: "", category: "SPICES" },
+      { description: "Rai 200 gm", remarks: "", category: "SPICES" },
+      { description: "Sabji Masala 200 gm", remarks: "", category: "SPICES" },
+      { description: "senda namak 200 gm", remarks: "", category: "SPICES" },
+      { description: "Salt 2 kg", remarks: "", category: "SPICES" },
+      { description: "Chat Masala 100 gm", remarks: "", category: "SPICES" },
+      { description: "Panipuri Masala", remarks: "", category: "SPICES" },
+      { description: "jeera powder", remarks: "", category: "SPICES" },
+      { description: "Pencil", remarks: "", category: "STATIONARY" },
+      { description: "Sugar 2 kg", remarks: "", category: "SWEETS" },
+      { description: "Milk", remarks: "", category: "BAVERAGES" },
+      { description: "Butter Milk", remarks: "", category: "BAVERAGES" },
+      { description: "Dahi", remarks: "", category: "BAVERAGES" },
+      { description: "Khobra Boora 500 gm", remarks: "", category: "FLOUR" },
+      { description: "Badi-moong dal 250 gm", remarks: "", category: "FLOUR" },
+      { description: "Cylinder stand", remarks: "", category: "KITCHEN" },
+      { description: "Tiffin", remarks: "", category: "ORGANISER" },
+      { description: "Mehndi Hina", remarks: "", category: "PERSONAL" },
+      { description: "Roli", remarks: "", category: "POOJAN" },
+      { description: "Match Box", remarks: "", category: "POOJAN" },
+      { description: "Kala Namak 200 gm", remarks: "", category: "SPICES" },
+      { description: "Mishri", remarks: "", category: "SWEETS" },
+      { description: "Ilaichidaane", remarks: "", category: "SWEETS" },
+      { description: "Agar 500 gm", remarks: "", category: "SWEETS" },
+      { description: "Senda Namak", remarks: "", category: "KITCHEN" },
+      { description: "HARPIC", remarks: "", category: "BATHROOM" },
+      { description: "Shampoo", remarks: "", category: "BATHROOM" },
+      { description: "Tooth Brush", remarks: "", category: "BATHROOM" },
+      { description: "LOWER PANT", remarks: "", category: "CLOTHS" },
+      { description: "SOCKS", remarks: "", category: "CLOTHS" },
+      { description: "BARLEY", remarks: "", category: "CROPS" },
+      { description: "OATS", remarks: "", category: "CROPS" },
+      { description: "KHASKHAS", remarks: "", category: "DRY FRUITS" },
+      { description: "TILI", remarks: "", category: "DRY FRUITS" },
+      { description: "CORN FLOUR", remarks: "", category: "FLOUR" },
+      { description: "Guava", remarks: "", category: "FRUITS" },
+      { description: "Papaya", remarks: "", category: "FRUITS" },
+      { description: "Banana", remarks: "", category: "FRUITS" },
+      { description: "Musk melon", remarks: "", category: "FRUITS" },
+      { description: "Oranges", remarks: "", category: "FRUITS" },
+      { description: "Grapes", remarks: "", category: "FRUITS" },
+      { description: "bornvita", remarks: "", category: "HEALTH" },
+      { description: "Protinex", remarks: "", category: "HEALTH" },
+      { description: "Good Knight rifill bottle", remarks: "", category: "HEALTH" },
+      { description: "Utensil Soap", remarks: "", category: "KITCHEN" },
+      { description: "cheese", remarks: "", category: "KITCHEN" },
+      { description: "Shrikhand", remarks: "", category: "KITCHEN" },
+      { description: "pizza base", remarks: "", category: "KITCHEN" },
+      { description: "cheese", remarks: "", category: "KITCHEN" },
+      { description: "Matka Stand", remarks: "", category: "KITCHEN" },
+      { description: "Bandage", remarks: "", category: "MEDICAL" },
+      { description: "Diabetes strip", remarks: "", category: "MEDICAL" },
+      { description: "Medical Big Box", remarks: "", category: "ORGANISER" },
+      { description: "Container", remarks: "", category: "ORGANISER" },
+      { description: "Water Bottle", remarks: "", category: "ORGANISER" },
+      { description: "Surgical pipe", remarks: "", category: "OTHERS" },
+      { description: "Yeast", remarks: "", category: "OTHERS" },
+      { description: "Deo", remarks: "", category: "PERSONAL" },
+      { description: "Hair Oil", remarks: "", category: "PERSONAL" },
+      { description: "Multani mitti", remarks: "", category: "PERSONAL" },
+      { description: "shaving cream", remarks: "", category: "PERSONAL" },
+      { description: "Shoe polish", remarks: "", category: "PERSONAL" },
+      { description: "Camphor", remarks: "", category: "POOJAN" },
+      { description: "Dal-ch moong", remarks: "", category: "PULSES" },
+      { description: "Dal-Kali Masood", remarks: "", category: "PULSES" },
+      { description: "Dal-Lal Masood dal", remarks: "", category: "PULSES" },
+      { description: "Dal-mix", remarks: "", category: "PULSES" },
+      { description: "Dal-Soyabean", remarks: "", category: "PULSES" },
+      { description: "Matki", remarks: "", category: "PULSES" },
+      { description: "Rajma", remarks: "", category: "PULSES" },
+      { description: "Biscuit Patanjali", remarks: "", category: "SNACKS" },
+      { description: "Dark Fantasy", remarks: "", category: "SNACKS" },
+      { description: "Kurmur", remarks: "", category: "SNACKS" },
+      { description: "Namkeen-khatta meetha", remarks: "", category: "SNACKS" },
+      { description: "soya sauce", remarks: "", category: "SNACKS" },
+      { description: "Papad", remarks: "", category: "SNACKS" },
+      { description: "akkha dhania", remarks: "", category: "SPICES" },
+      { description: "daal chini", remarks: "", category: "SPICES" },
+      { description: "dhania", remarks: "", category: "SPICES" },
+      { description: "Haldi", remarks: "", category: "SPICES" },
+      { description: "kasturi maithi", remarks: "", category: "SPICES" },
+      { description: "khana soda", remarks: "", category: "SPICES" },
+      { description: "Kitchen King", remarks: "", category: "SPICES" },
+      { description: "Lal mirch", remarks: "", category: "SPICES" },
+      { description: "Methi", remarks: "", category: "SPICES" },
+      { description: "Sonf", remarks: "", category: "SPICES" },
+      { description: "Tea masala", remarks: "", category: "SPICES" },
+      { description: "zeera", remarks: "", category: "SPICES" },
+      { description: "Eraser", remarks: "", category: "STATIONARY" },
+      { description: "Notebook", remarks: "", category: "STATIONARY" },
+      { description: "Pen", remarks: "", category: "STATIONARY" },
+      { description: "Scale", remarks: "", category: "STATIONARY" },
+      { description: "Jaggery", remarks: "", category: "SWEETS" },
+      { description: "Bathua", remarks: "", category: "VEGETABLES" },
+      { description: "Garlic", remarks: "", category: "VEGETABLES" },
+      { description: "Ginger", remarks: "", category: "VEGETABLES" },
+      { description: "Green Chillis", remarks: "", category: "VEGETABLES" },
+      { description: "Lemon", remarks: "", category: "VEGETABLES" },
+      { description: "Maithi", remarks: "", category: "VEGETABLES" },
+      { description: "Onion", remarks: "", category: "VEGETABLES" },
+      { description: "Palak", remarks: "", category: "VEGETABLES" },
+      { description: "Patatoes", remarks: "", category: "VEGETABLES" },
+      { description: "Tomatoes", remarks: "", category: "VEGETABLES" },
+      { description: "Vegetable", remarks: "", category: "VEGETABLES" },
+      { description: "Surf", remarks: "", category: "WASHING & CLEANING" },
+      { description: "Yellow lizol", remarks: "", category: "WASHING & CLEANING" }
+    ];
+
+    const shoppingListBody = document.getElementById("shoppingListBody");
+
+    shoppingData.forEach(item => {
+      const row = document.createElement("tr");
+      const descriptionCell = document.createElement("td");
+      const remarksCell = document.createElement("td");
+      const categoryCell = document.createElement("td");
+      const toBuyCell = document.createElement("td");
+      const boughtCell = document.createElement("td");
+
+      descriptionCell.textContent = item.description;
+
+      const remarksInput = document.createElement("input");
+      remarksInput.type = "text";
+      remarksInput.value = item.remarks;
+      remarksCell.appendChild(remarksInput);
+
+      categoryCell.textContent = item.category;
+
+      const toBuyCheckbox = document.createElement("input");
+      toBuyCheckbox.type = "checkbox";
+      toBuyCell.appendChild(toBuyCheckbox);
+
+      const boughtCheckbox = document.createElement("input");
+      boughtCheckbox.type = "checkbox";
+      boughtCell.appendChild(boughtCheckbox);
+
+      row.appendChild(descriptionCell);
+      row.appendChild(remarksCell);
+      row.appendChild(categoryCell);
+      row.appendChild(toBuyCell);
+      row.appendChild(boughtCell);
+      shoppingListBody.appendChild(row);
+
+      toBuyCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+              row.classList.add('red-row');
+          } else {
+              row.classList.remove('red-row');
+          }
+      });
+
+      boughtCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+              row.classList.add('green-row');
+          } else {
+              row.classList.remove('green-row');
+          }
+      });
+    });
+  </script>
+
+</body>
+</html>
